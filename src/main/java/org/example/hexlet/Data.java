@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.stream.Collectors;
 import java.util.Collections;
 import org.example.hexlet.model.Course;
+import org.example.hexlet.model.User;
+
 import java.util.stream.LongStream;
 
 public class Data {
@@ -37,6 +39,31 @@ public class Data {
         }
 
         return courses;
+    }
+
+    public static List<User> getUsers() {
+        Random random = new Random(123);
+        Faker faker = new Faker(new Locale("en"), random);
+
+        List<Long> ids = LongStream
+                .range(1, ITEMS_COUNT + 1)
+                .boxed()
+                .collect(Collectors.toList());
+        Collections.shuffle(ids, random);
+
+        List<User> users = new ArrayList<>();
+
+        for (int i = 0; i < ITEMS_COUNT; i++) {
+            Long id = ids.get(i);
+            String firstName = faker.name().firstName();
+            String lastName = faker.name().lastName();
+            String email = faker.internet().emailAddress();
+            User user = new User(firstName, lastName, email);
+            user.setId(id);
+            users.add(user);
+        }
+
+        return users;
     }
 
     public static long getNextId() {

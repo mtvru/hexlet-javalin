@@ -5,7 +5,9 @@ import io.javalin.http.NotFoundResponse;
 import io.javalin.rendering.template.JavalinJte;
 import org.example.hexlet.dto.courses.CoursePage;
 import org.example.hexlet.dto.courses.CoursesPage;
+import org.example.hexlet.dto.users.UsersPage;
 import org.example.hexlet.model.Course;
+import org.example.hexlet.model.User;
 
 import java.util.List;
 import java.util.Objects;
@@ -13,7 +15,8 @@ import java.util.Objects;
 import static io.javalin.rendering.template.TemplateUtil.model;
 
 public class HelloWorld {
-    private final static List<Course> COURSES = Data.getCourses();
+    private static final List<Course> COURSES = Data.getCourses();
+    private static final List<User> USERS = Data.getUsers();
 
     public static void main(String[] args) {
         // Создаем приложение
@@ -23,7 +26,10 @@ public class HelloWorld {
         });
         // Описываем, что загрузится по адресу /
         app.get("/", ctx -> ctx.render("index.jte"));
-        app.get("/users", ctx -> ctx.json("GET /users"));
+        app.get("/users", ctx -> {
+            var page = new UsersPage(USERS);
+            ctx.render("users/index.jte", model("page", page));
+        });
         app.get("/hello", ctx -> {
             String name = ctx.queryParamAsClass("name", String.class).getOrDefault("World");
             ctx.result("Hello, " + name + "!");
