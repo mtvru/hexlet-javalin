@@ -2,8 +2,9 @@ import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 
 plugins {
-    id("java")
     application
+    id("java")
+    id("io.freefair.lombok") version "8.13.1"
 }
 
 application {
