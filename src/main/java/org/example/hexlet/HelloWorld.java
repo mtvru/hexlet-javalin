@@ -12,15 +12,7 @@ import java.util.List;
 import static io.javalin.rendering.template.TemplateUtil.model;
 
 public class HelloWorld {
-    private final static List<Course> COURSES;
-
-    static {
-        Course c1 = new Course("Course 1", "desc 1");
-        c1.setId(1L);
-        Course c2 = new Course("Course 2", "desc 2");
-        c2.setId(2L);
-        COURSES = List.of(c1, c2);
-    }
+    private final static List<Course> COURSES = Data.getCourses();
 
     public static void main(String[] args) {
         // Создаем приложение
