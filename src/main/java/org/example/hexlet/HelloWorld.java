@@ -8,6 +8,7 @@ import org.example.hexlet.dto.courses.CoursesPage;
 import org.example.hexlet.model.Course;
 
 import java.util.List;
+import java.util.Objects;
 
 import static io.javalin.rendering.template.TemplateUtil.model;
 
@@ -37,7 +38,7 @@ public class HelloWorld {
             Long id = ctx.pathParamAsClass("id", Long.class).get();
             Course course = COURSES
                 .stream()
-                .filter(c -> c.getId().equals(id))
+                .filter(c -> Objects.equals(c.getId(), id))
                 .findFirst()
                 .orElseThrow(() -> new NotFoundResponse("Course not found..."));
             CoursePage page = new CoursePage(course);
