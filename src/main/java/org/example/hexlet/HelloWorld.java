@@ -15,6 +15,11 @@ public class HelloWorld {
             String name = ctx.queryParamAsClass("name", String.class).getOrDefault("World");
             ctx.result("Hello, " + name + "!");
         });
+        app.get("/users/{id}/post/{postId}", ctx -> {
+            String postId = ctx.pathParam("postId");
+            String id =  ctx.pathParam("id");
+            ctx.result("User ID: " + id + " Post ID: " + postId);
+        });
         app.post("/users", ctx -> ctx.result("POST /users"));
         app.start(7070); // Стартуем веб-сервер
     }
