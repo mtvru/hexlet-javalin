@@ -2,8 +2,6 @@ package org.example.hexlet;
 
 import io.javalin.Javalin;
 
-import java.util.Objects;
-
 public class HelloWorld {
     public static void main(String[] args) {
         // Создаем приложение
@@ -14,7 +12,7 @@ public class HelloWorld {
         app.get("/", ctx -> ctx.result("Hello World"));
         app.get("/users", ctx -> ctx.json("GET /users"));
         app.get("/hello", ctx -> {
-            String name = Objects.requireNonNullElse(ctx.queryParam("name"), "World");
+            String name = ctx.queryParamAsClass("name", String.class).getOrDefault("World");
             ctx.result("Hello, " + name + "!");
         });
         app.post("/users", ctx -> ctx.result("POST /users"));
