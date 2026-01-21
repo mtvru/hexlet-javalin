@@ -4,7 +4,9 @@
 @template.layout.page(
 content = @`
     @for(var user : page.getUsers())
-        <div>${user.getName()}</div>
+        <h2><a href="/users/${user.getId()}">${user.getName()}</a></h2>
+        <div>${user.getEmail()}</div>
+        <div>${user.getCreatedAt().toString()}</div>
     @endfor
 `
 )

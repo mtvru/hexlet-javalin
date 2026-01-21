@@ -5,9 +5,11 @@ import io.javalin.http.NotFoundResponse;
 import io.javalin.rendering.template.JavalinJte;
 import org.example.hexlet.dto.courses.CoursePage;
 import org.example.hexlet.dto.courses.CoursesPage;
+import org.example.hexlet.dto.users.UserPage;
 import org.example.hexlet.dto.users.UsersPage;
 import org.example.hexlet.model.Course;
 import org.example.hexlet.model.User;
+import org.example.hexlet.repository.UserRepository;
 
 import java.util.List;
 import java.util.Objects;
@@ -25,8 +27,27 @@ public class HelloWorld {
         });
         app.get("/", ctx -> ctx.render("index.jte"));
         app.get("/users", ctx -> {
-            var page = new UsersPage(USERS);
+            UsersPage page = new UsersPage(UserRepository.getEntities());
             ctx.render("users/index.jte", model("page", page));
+        });
+        app.post("/users", ctx -> {
+            String name = ctx.formParam("name").trim();
+            String email = ctx.formParam("email").trim().toLowerCase();
+            String password = ctx.formParam("password");
+            String passwordConfirmation = ctx.formParam("passwordConfirmation");
+
+            User user = new User(name, email, password);
+            UserRepository.save(user);
+            ctx.redirect("/users");
+        });
+        app.get("/users/build", ctx -> {
+            ctx.render("users/build.jte");
+        });
+        app.get("/users/{id}", ctx -> {
+            Long id = ctx.pathParamAsClass("id", Long.class).get();
+            User user = UserRepository.find(id).orElseThrow(() -> new NotFoundResponse("Course not found..."));
+            UserPage page = new UserPage(user);
+            ctx.render("users/show.jte", model("page", page));
         });
         app.get("/hello", ctx -> {
             String name = ctx.queryParamAsClass("name", String.class).getOrDefault("World");
