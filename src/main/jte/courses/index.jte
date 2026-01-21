@@ -7,7 +7,7 @@ content = @`
     <h1>${page.getHeader()}</h1>
     <form action="/courses" method="get">
         <input type="search" name="term" value="${page.getTerm()}">
-        <input type="submit" value="Искать">
+        <input type="submit" value="Search">
     </form>
     @if(page.getCourses().isEmpty())
         <p>No courses have been added yet.</p>

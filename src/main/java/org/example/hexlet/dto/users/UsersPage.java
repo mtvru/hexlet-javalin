@@ -9,5 +9,5 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 public class UsersPage {
-    public List<User> users;
+    private List<User> users;
 }
