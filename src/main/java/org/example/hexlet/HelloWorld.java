@@ -19,12 +19,10 @@ public class HelloWorld {
     private static final List<User> USERS = Data.getUsers();
 
     public static void main(String[] args) {
-        // Создаем приложение
         Javalin app = Javalin.create(config -> {
             config.bundledPlugins.enableDevLogging();
             config.fileRenderer(new JavalinJte());
         });
-        // Описываем, что загрузится по адресу /
         app.get("/", ctx -> ctx.render("index.jte"));
         app.get("/users", ctx -> {
             var page = new UsersPage(USERS);
@@ -39,7 +37,6 @@ public class HelloWorld {
             String id =  ctx.pathParam("id");
             ctx.result("User ID: " + id + " Post ID: " + postId);
         });
-        app.post("/users", ctx -> ctx.result("POST /users"));
         app.get("/courses/{id}", ctx -> {
             Long id = ctx.pathParamAsClass("id", Long.class).get();
             Course course = COURSES
@@ -51,10 +48,20 @@ public class HelloWorld {
             ctx.render("courses/show.jte", model("page", page));
         });
         app.get("/courses", ctx -> {
-            String header = "Курсы по программированию";
-            CoursesPage page = new CoursesPage(COURSES, header);
+            String header = "List of courses";
+            String term = ctx.queryParam("term");
+            List<Course> courses;
+            if (term != null) {
+                courses = COURSES
+                    .stream()
+                    .filter(c -> c.getDescription().contains(term))
+                    .toList();
+            } else {
+                courses = COURSES;
+            }
+            CoursesPage page = new CoursesPage(courses, header, term);
             ctx.render("courses/index.jte", model("page", page));
         });
-        app.start(7070); // Стартуем веб-сервер
+        app.start(7070);
     }
 }

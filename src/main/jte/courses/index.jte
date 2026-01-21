@@ -5,8 +5,12 @@
 @template.layout.page(
 content = @`
     <h1>${page.getHeader()}</h1>
+    <form action="/courses" method="get">
+        <input type="search" name="term" value="${page.getTerm()}">
+        <input type="submit" value="Искать">
+    </form>
     @if(page.getCourses().isEmpty())
-        <p>Пока не добавлено ни одного курса</p>
+        <p>No courses have been added yet.</p>
     @else
         @for(Course course : page.getCourses())
             <div>
