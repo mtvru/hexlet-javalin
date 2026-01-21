@@ -10,7 +10,9 @@
 </head>
 <body>
 @template.layout.header()
+<br/>
 ${content}
+<br/>
 @template.layout.footer()
 </body>
 </html>
