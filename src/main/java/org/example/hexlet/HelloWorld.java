@@ -58,6 +58,7 @@ public class HelloWorld {
                 ctx.redirect("/courses");
             } catch (ValidationException e) {
                 BuildCoursePage page = new BuildCoursePage(name, description, e.getErrors());
+                ctx.status(422);
                 ctx.render("courses/build.jte", model("page", page));
             }
         });
@@ -94,6 +95,7 @@ public class HelloWorld {
                 ctx.redirect("/users");
             } catch (ValidationException e) {
                 BuildUserPage page = new BuildUserPage(name, email, e.getErrors());
+                ctx.status(422);
                 ctx.render("users/build.jte", model("page", page));
             }
         });
