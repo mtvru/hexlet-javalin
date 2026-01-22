@@ -80,8 +80,8 @@ public class HelloWorld {
             ctx.render("courses/index.jte", model("page", page));
         });
         app.post("/courses", ctx -> {
-            String name = "";
-            String description = "";
+            String name = ctx.formParam("name");
+            String description = ctx.formParam("description");
 
             try {
                 name = ctx.formParamAsClass("name", String.class)
