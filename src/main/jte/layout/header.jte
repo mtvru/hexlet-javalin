@@ -1,7 +1,9 @@
+@import org.example.hexlet.NamedRoutes
+
 <div>
     <a href="/">Home</a>
-    <a href="/users">Users</a>
-    <a href="/users/build">Create user</a>
-    <a href="/courses">Courses</a>
-    <a href="/courses/build">Create course</a>
+    <a href="${NamedRoutes.usersPath()}">Users</a>
+    <a href="${NamedRoutes.buildUserPath()}">Create user</a>
+    <a href="${NamedRoutes.coursesPath()}">Courses</a>
+    <a href="${NamedRoutes.buildCoursePath()}">Create course</a>
 </div>

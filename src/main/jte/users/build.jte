@@ -1,4 +1,5 @@
 @import io.javalin.validation.ValidationError
+@import org.example.hexlet.NamedRoutes
 @import org.example.hexlet.dto.users.BuildUserPage
 @import java.util.List
 @param BuildUserPage page
@@ -14,7 +15,7 @@ content = @`
             @endfor
         </ul>
     @endif
-    <form action="/users" method="post">
+    <form action="${NamedRoutes.usersPath()}" method="post">
         <div>
             <label>
                 Name

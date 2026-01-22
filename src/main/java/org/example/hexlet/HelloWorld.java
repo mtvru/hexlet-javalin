@@ -26,11 +26,11 @@ public class HelloWorld {
             config.fileRenderer(new JavalinJte());
         });
         app.get("/", ctx -> ctx.render("index.jte"));
-        app.get("/courses/build", ctx -> {
+        app.get(NamedRoutes.buildCoursePath(), ctx -> {
             BuildCoursePage page = new BuildCoursePage();
             ctx.render("courses/build.jte", model("page", page));
         });
-        app.get("/courses", ctx -> {
+        app.get(NamedRoutes.coursesPath(), ctx -> {
             String header = "List of courses";
             String term = ctx.queryParam("term");
             List<Course> courses;
@@ -42,7 +42,7 @@ public class HelloWorld {
             CoursesPage page = new CoursesPage(courses, header, term);
             ctx.render("courses/index.jte", model("page", page));
         });
-        app.post("/courses", ctx -> {
+        app.post(NamedRoutes.coursesPath(), ctx -> {
             String name = ctx.formParam("name").trim();
             String description = ctx.formParam("description").trim();
 
@@ -55,14 +55,14 @@ public class HelloWorld {
                         .get();
                 Course course = new Course(name, description);
                 CourseRepository.save(course);
-                ctx.redirect("/courses");
+                ctx.redirect(NamedRoutes.coursesPath());
             } catch (ValidationException e) {
                 BuildCoursePage page = new BuildCoursePage(name, description, e.getErrors());
                 ctx.status(422);
                 ctx.render("courses/build.jte", model("page", page));
             }
         });
-        app.get("/courses/{id}", ctx -> {
+        app.get(NamedRoutes.coursePath("{id}"), ctx -> {
             Long id = ctx.pathParamAsClass("id", Long.class).get();
             Course course = CourseRepository.find(id).orElseThrow(() -> new NotFoundResponse("Course not found..."));
             CoursePage page = new CoursePage(course);
@@ -72,15 +72,15 @@ public class HelloWorld {
             String name = ctx.queryParamAsClass("name", String.class).getOrDefault("World");
             ctx.result("Hello, " + name + "!");
         });
-        app.get("/users/build", ctx -> {
+        app.get(NamedRoutes.buildUserPath(), ctx -> {
             BuildUserPage page = new BuildUserPage();
             ctx.render("users/build.jte", model("page", page));
         });
-        app.get("/users", ctx -> {
+        app.get(NamedRoutes.usersPath(), ctx -> {
             UsersPage page = new UsersPage(UserRepository.getEntities());
             ctx.render("users/index.jte", model("page", page));
         });
-        app.post("/users", ctx -> {
+        app.post(NamedRoutes.usersPath(), ctx -> {
             String name = ctx.formParam("name").trim();
             String email = ctx.formParam("email").trim().toLowerCase();
 
@@ -92,7 +92,7 @@ public class HelloWorld {
                         .get();
                 User user = new User(name, email, password);
                 UserRepository.save(user);
-                ctx.redirect("/users");
+                ctx.redirect(NamedRoutes.usersPath());
             } catch (ValidationException e) {
                 BuildUserPage page = new BuildUserPage(name, email, e.getErrors());
                 ctx.status(422);
@@ -104,7 +104,7 @@ public class HelloWorld {
             String id =  ctx.pathParam("id");
             ctx.result("User ID: " + id + " Post ID: " + postId);
         });
-        app.get("/users/{id}", ctx -> {
+        app.get(NamedRoutes.userPath("{id}"), ctx -> {
             Long id = ctx.pathParamAsClass("id", Long.class).get();
             User user = UserRepository.find(id).orElseThrow(() -> new NotFoundResponse("Course not found..."));
             UserPage page = new UserPage(user);
