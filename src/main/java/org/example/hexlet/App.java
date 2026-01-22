@@ -19,7 +19,7 @@ import java.util.List;
 
 import static io.javalin.rendering.template.TemplateUtil.model;
 
-public class HelloWorld {
+public class App {
     public static void main(String[] args) {
         Javalin app = Javalin.create(config -> {
             config.bundledPlugins.enableDevLogging();
