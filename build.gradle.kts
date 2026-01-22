@@ -27,6 +27,7 @@ dependencies {
     implementation("io.javalin:javalin-rendering:6.1.3")
     implementation("gg.jte:jte:3.1.9")
     implementation("net.datafaker:datafaker:2.5.2")
+    implementation("org.apache.commons:commons-lang3:3.14.0")
     testImplementation(platform("org.junit:junit-bom:5.9.1"))
     testImplementation("org.junit.jupiter:junit-jupiter")
 }
