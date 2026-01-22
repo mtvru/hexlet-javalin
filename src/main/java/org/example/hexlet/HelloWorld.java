@@ -4,6 +4,7 @@ import io.javalin.Javalin;
 import io.javalin.http.NotFoundResponse;
 import io.javalin.rendering.template.JavalinJte;
 import io.javalin.validation.ValidationException;
+import org.example.hexlet.dto.courses.BuildCoursePage;
 import org.example.hexlet.dto.courses.CoursePage;
 import org.example.hexlet.dto.courses.CoursesPage;
 import org.example.hexlet.dto.users.BuildUserPage;
@@ -79,15 +80,27 @@ public class HelloWorld {
             ctx.render("courses/index.jte", model("page", page));
         });
         app.post("/courses", ctx -> {
-            String name = ctx.formParam("name").trim();
-            String description = ctx.formParam("description").trim();
+            String name = "";
+            String description = "";
 
-            Course course = new Course(name, description);
-            CourseRepository.save(course);
-            ctx.redirect("/courses");
+            try {
+                name = ctx.formParamAsClass("name", String.class)
+                    .check(value -> value.length() > 2, "The name is not long enough")
+                    .get();
+                description = ctx.formParamAsClass("description", String.class)
+                    .check(value -> value.length() > 10, "The description is not long enough")
+                    .get();
+                Course course = new Course(name, description);
+                CourseRepository.save(course);
+                ctx.redirect("/courses");
+            } catch (ValidationException e) {
+                BuildCoursePage page = new BuildCoursePage(name, description, e.getErrors());
+                ctx.render("courses/build.jte", model("page", page));
+            }
         });
         app.get("/courses/build", ctx -> {
-            ctx.render("courses/build.jte");
+            BuildCoursePage page = new BuildCoursePage();
+            ctx.render("courses/build.jte", model("page", page));
         });
         app.get("/courses/{id}", ctx -> {
             Long id = ctx.pathParamAsClass("id", Long.class).get();
