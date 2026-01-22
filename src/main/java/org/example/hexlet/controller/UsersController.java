@@ -53,22 +53,22 @@ public class UsersController {
     }
 
     public static void edit(Context ctx) {
-        var id = ctx.pathParamAsClass("id", Long.class).get();
-        var user = UserRepository.find(id)
+        Long id = ctx.pathParamAsClass("id", Long.class).get();
+        User user = UserRepository.find(id)
                 .orElseThrow(() -> new NotFoundResponse("Entity with id = " + id + " not found"));
-        var page = new UserPage(user);
+        UserPage page = new UserPage(user);
         ctx.render("users/edit.jte", model("page", page));
     }
 
 
     public static void update(Context ctx) {
-        var id = ctx.pathParamAsClass("id", Long.class).get();
+        Long id = ctx.pathParamAsClass("id", Long.class).get();
 
-        var name = ctx.formParam("name");
-        var email = ctx.formParam("email");
-        var password = ctx.formParam("password");
+        String name = ctx.formParam("name");
+        String email = ctx.formParam("email");
+        String password = ctx.formParam("password");
 
-        var user = UserRepository.find(id)
+        User user = UserRepository.find(id)
                 .orElseThrow(() -> new NotFoundResponse("Entity with id = " + id + " not found"));
         user.setName(name);
         user.setEmail(email);
@@ -78,7 +78,7 @@ public class UsersController {
     }
 
     public static void destroy(Context ctx) {
-        var id = ctx.pathParamAsClass("id", Long.class).get();
+        Long id = ctx.pathParamAsClass("id", Long.class).get();
         UserRepository.delete(id);
         ctx.redirect(NamedRoutes.usersPath());
     }
