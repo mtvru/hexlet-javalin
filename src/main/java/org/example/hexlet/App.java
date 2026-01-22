@@ -12,6 +12,10 @@ public class App {
             config.fileRenderer(new JavalinJte());
         });
         app.get("/", ctx -> ctx.render("index.jte"));
+        app.get("/hello", ctx -> {
+            String name = ctx.queryParamAsClass("name", String.class).getOrDefault("World");
+            ctx.result("Hello, " + name + "!");
+        });
         app.get(NamedRoutes.coursesPath(), CoursesController::index);
         app.get(NamedRoutes.buildCoursePath(), CoursesController::build);
         app.get(NamedRoutes.coursePath("{id}"), CoursesController::show);
@@ -19,10 +23,6 @@ public class App {
         app.get(NamedRoutes.editCoursePath("{id}"), CoursesController::edit);
         app.patch(NamedRoutes.coursePath("{id}"), CoursesController::update);
         app.delete(NamedRoutes.coursePath("{id}"), CoursesController::destroy);
-        app.get("/hello", ctx -> {
-            String name = ctx.queryParamAsClass("name", String.class).getOrDefault("World");
-            ctx.result("Hello, " + name + "!");
-        });
         app.get(NamedRoutes.usersPath(), UsersController::index);
         app.get(NamedRoutes.buildUserPath(), UsersController::build);
         app.get(NamedRoutes.userPath("{id}"), UsersController::show);
