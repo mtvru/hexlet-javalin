@@ -3,8 +3,10 @@ package org.example.hexlet;
 import io.javalin.Javalin;
 import io.javalin.http.NotFoundResponse;
 import io.javalin.rendering.template.JavalinJte;
+import io.javalin.validation.ValidationException;
 import org.example.hexlet.dto.courses.CoursePage;
 import org.example.hexlet.dto.courses.CoursesPage;
+import org.example.hexlet.dto.users.BuildUserPage;
 import org.example.hexlet.dto.users.UserPage;
 import org.example.hexlet.dto.users.UsersPage;
 import org.example.hexlet.model.Course;
@@ -30,15 +32,24 @@ public class HelloWorld {
         app.post("/users", ctx -> {
             String name = ctx.formParam("name").trim();
             String email = ctx.formParam("email").trim().toLowerCase();
-            String password = ctx.formParam("password");
-            String passwordConfirmation = ctx.formParam("passwordConfirmation");
 
-            User user = new User(name, email, password);
-            UserRepository.save(user);
-            ctx.redirect("/users");
+            try {
+                String passwordConfirmation = ctx.formParam("passwordConfirmation");
+                String password = ctx.formParamAsClass("password", String.class)
+                        .check(value -> value.equals(passwordConfirmation), "The passwords don't match")
+                        .check(value -> value.length() > 6, "The password is not long enough")
+                        .get();
+                User user = new User(name, email, password);
+                UserRepository.save(user);
+                ctx.redirect("/users");
+            } catch (ValidationException e) {
+                BuildUserPage page = new BuildUserPage(name, email, e.getErrors());
+                ctx.render("users/build.jte", model("page", page));
+            }
         });
         app.get("/users/build", ctx -> {
-            ctx.render("users/build.jte");
+            BuildUserPage page = new BuildUserPage();
+            ctx.render("users/build.jte", model("page", page));
         });
         app.get("/users/{id}", ctx -> {
             Long id = ctx.pathParamAsClass("id", Long.class).get();
