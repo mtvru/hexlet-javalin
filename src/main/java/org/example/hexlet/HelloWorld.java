@@ -80,15 +80,15 @@ public class HelloWorld {
             ctx.render("courses/index.jte", model("page", page));
         });
         app.post("/courses", ctx -> {
-            String name = ctx.formParam("name");
-            String description = ctx.formParam("description");
+            String name = ctx.formParam("name").trim();
+            String description = ctx.formParam("description").trim();
 
             try {
                 name = ctx.formParamAsClass("name", String.class)
-                    .check(value -> value.length() > 2, "The name is not long enough")
+                    .check(value -> value.trim().length() > 2, "The name is not long enough")
                     .get();
                 description = ctx.formParamAsClass("description", String.class)
-                    .check(value -> value.length() > 10, "The description is not long enough")
+                    .check(value -> value.trim().length() > 10, "The description is not long enough")
                     .get();
                 Course course = new Course(name, description);
                 CourseRepository.save(course);
