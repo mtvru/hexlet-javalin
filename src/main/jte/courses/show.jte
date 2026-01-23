@@ -5,7 +5,7 @@
 content = @`
     <main>
         <h1>${page.getCourse().getId()}</h1>
-        <h1>${page.getCourse().getName()}</h1>
+        <p>${page.getCourse().getName()}</p>
         <p>${page.getCourse().getDescription()}</p>
     </main>
 `
