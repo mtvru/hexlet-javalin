@@ -6,4 +6,5 @@
     <a href="${NamedRoutes.buildUserPath()}">Create user</a>
     <a href="${NamedRoutes.coursesPath()}">Courses</a>
     <a href="${NamedRoutes.buildCoursePath()}">Create course</a>
+    <a href="${NamedRoutes.postsPath()}">Posts</a>
 </div>

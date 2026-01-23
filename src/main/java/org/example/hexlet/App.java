@@ -3,6 +3,7 @@ package org.example.hexlet;
 import io.javalin.Javalin;
 import io.javalin.rendering.template.JavalinJte;
 import org.example.hexlet.controller.CoursesController;
+import org.example.hexlet.controller.PostsController;
 import org.example.hexlet.controller.UsersController;
 
 public class App {
@@ -35,6 +36,8 @@ public class App {
             String id =  ctx.pathParam("id");
             ctx.result("User ID: " + id + " Post ID: " + postId);
         });
+        app.get(NamedRoutes.postsPath(), PostsController::index);
+        app.get(NamedRoutes.postPath("{id}"), PostsController::show);
         app.start(7070);
     }
 }

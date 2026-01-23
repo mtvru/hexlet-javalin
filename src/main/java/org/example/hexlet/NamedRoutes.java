@@ -49,4 +49,16 @@ public class NamedRoutes {
     public static String editCoursePath(String id) {
         return "/courses/" + id + "/edit";
     }
+
+    public static String postPath(Long id) {
+        return postPath(String.valueOf(id));
+    }
+
+    public static String postPath(String id) {
+        return "/posts/" + id;
+    }
+
+    public static String postsPath() {
+        return "/posts";
+    }
 }
