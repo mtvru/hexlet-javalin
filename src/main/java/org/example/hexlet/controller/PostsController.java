@@ -35,7 +35,7 @@ public class PostsController {
         Long id = ctx.pathParamAsClass("id", Long.class).get();
         Post post = PostRepository.find(id)
                 .orElseThrow(() -> new NotFoundResponse("Entity with id = " + id + " not found"));
-        EditPostPage page = new EditPostPage(id, post.getName(), post.getBody());
+        EditPostPage page = new EditPostPage(id, post.getName(), post.getBody(), null);
         ctx.render("posts/edit.jte", model("page", page));
     }
 
