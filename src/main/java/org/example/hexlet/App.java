@@ -7,11 +7,18 @@ import org.example.hexlet.controller.PostsController;
 import org.example.hexlet.controller.UsersController;
 import org.example.hexlet.util.NamedRoutes;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class App {
     public static void main(String[] args) {
         Javalin app = Javalin.create(config -> {
             config.bundledPlugins.enableDevLogging();
             config.fileRenderer(new JavalinJte());
+        });
+        app.before(ctx -> {
+            String now = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+            System.out.println("[" + now + "] Incoming request: " + ctx.method() + " " + ctx.path());
         });
         app.get("/", ctx -> ctx.render("index.jte"));
         app.get("/hello", ctx -> {
