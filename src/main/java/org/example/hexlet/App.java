@@ -4,6 +4,7 @@ import io.javalin.Javalin;
 import io.javalin.rendering.template.JavalinJte;
 import org.example.hexlet.controller.CoursesController;
 import org.example.hexlet.controller.PostsController;
+import org.example.hexlet.controller.SessionsController;
 import org.example.hexlet.controller.UsersController;
 import org.example.hexlet.dto.MainPage;
 import org.example.hexlet.util.NamedRoutes;
@@ -25,7 +26,7 @@ public class App {
         });
         app.get("/", ctx -> {
             Boolean visited = Boolean.valueOf(ctx.cookie("visited"));
-            MainPage page = new MainPage(visited);
+            MainPage page = new MainPage(ctx.sessionAttribute("currentUser"), visited);
             ctx.render("index.jte", model("page", page));
             ctx.cookie("visited", String.valueOf(true));
         });
@@ -56,6 +57,9 @@ public class App {
         app.get(NamedRoutes.postPath("{id}"), PostsController::show);
         app.get(NamedRoutes.editPostPath("{id}"), PostsController::edit);
         app.post(NamedRoutes.postPath("{id}"), PostsController::update);
+        app.get(NamedRoutes.buildSessionsPath(), SessionsController::build);
+        app.post(NamedRoutes.sessionsPath(), SessionsController::create);
+        app.delete(NamedRoutes.sessionsPath(), SessionsController::destroy);
         app.start(7070);
     }
 }

@@ -69,4 +69,12 @@ public class NamedRoutes {
     public static String editPostPath(String id) {
         return "/posts/" + id + "/edit";
     }
+
+    public static String sessionsPath() {
+        return "/sessions";
+    }
+
+    public static String buildSessionsPath() {
+        return "/sessions/build";
+    }
 }
