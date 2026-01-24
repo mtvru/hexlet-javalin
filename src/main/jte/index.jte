@@ -8,11 +8,11 @@ content = @`
             <h1 class="text-body-emphasis">Hello, Hexlet!</h1>
             <p>Javalin + jte</p>
             @if(!page.isVisited())
-                This message is shown only once. If you want to see it again, clear your cookies.
+                <p>This message is shown only once. If you want to see it again, clear your cookies.</p>
             @endif
             @if(page.getCurrentUser() != null)
-                Welcome, ${page.getCurrentUser()}.
-                To log out, delete the JSESSIONID cookie from your browser.
+                <p>Welcome, ${page.getCurrentUser()}.
+                To log out, delete the JSESSIONID cookie from your browser.</p>
             @endif
         </main>
     </div>
