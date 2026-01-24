@@ -27,7 +27,7 @@ public class UsersController {
         ctx.render("users/show.jte", model("page", page));
     }
 
-    public static void show2(Context ctx) throws Exception {
+    public static void show2(Context ctx) {
         Long id = ctx.pathParamAsClass("id", Long.class).get();
         User user = UserRepository.find(id)
                 .orElseThrow(() -> new NotFoundResponse("Entity with id = " + id + " not found"));
