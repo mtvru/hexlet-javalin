@@ -28,6 +28,8 @@ dependencies {
     implementation("gg.jte:jte:3.1.9")
     implementation("net.datafaker:datafaker:2.5.2")
     implementation("org.apache.commons:commons-lang3:3.14.0")
+    implementation("com.h2database:h2:2.2.220")
+    implementation("com.zaxxer:HikariCP:5.0.1")
     testImplementation(platform("org.junit:junit-bom:5.9.1"))
     testImplementation("org.junit.jupiter:junit-jupiter")
 }
