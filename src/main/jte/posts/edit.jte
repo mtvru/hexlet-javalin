@@ -1,5 +1,5 @@
 @import io.javalin.validation.ValidationError
-@import org.example.hexlet.NamedRoutes
+@import org.example.hexlet.util.NamedRoutes
 @import org.example.hexlet.dto.posts.EditPostPage
 @import java.util.List
 @param EditPostPage page

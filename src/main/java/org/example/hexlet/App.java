@@ -5,6 +5,7 @@ import io.javalin.rendering.template.JavalinJte;
 import org.example.hexlet.controller.CoursesController;
 import org.example.hexlet.controller.PostsController;
 import org.example.hexlet.controller.UsersController;
+import org.example.hexlet.util.NamedRoutes;
 
 public class App {
     public static void main(String[] args) {

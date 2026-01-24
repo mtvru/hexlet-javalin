@@ -3,7 +3,7 @@ package org.example.hexlet.controller;
 import static io.javalin.rendering.template.TemplateUtil.model;
 
 import io.javalin.validation.ValidationException;
-import org.example.hexlet.NamedRoutes;
+import org.example.hexlet.util.NamedRoutes;
 import org.example.hexlet.dto.users.BuildUserPage;
 import org.example.hexlet.dto.users.UserPage;
 import org.example.hexlet.dto.users.UsersPage;

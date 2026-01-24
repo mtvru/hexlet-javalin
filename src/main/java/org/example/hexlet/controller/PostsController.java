@@ -4,7 +4,7 @@ import java.util.List;
 import static io.javalin.rendering.template.TemplateUtil.model;
 
 import io.javalin.validation.ValidationException;
-import org.example.hexlet.NamedRoutes;
+import org.example.hexlet.util.NamedRoutes;
 import org.example.hexlet.dto.posts.EditPostPage;
 import org.example.hexlet.dto.posts.PostsPage;
 import org.example.hexlet.dto.posts.PostPage;

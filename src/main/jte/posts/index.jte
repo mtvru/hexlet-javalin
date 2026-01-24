@@ -1,6 +1,7 @@
-@import org.example.hexlet.NamedRoutes
+@import org.example.hexlet.util.NamedRoutes
 @import org.example.hexlet.dto.posts.PostsPage
 @import org.example.hexlet.model.Post
+@import org.example.hexlet.util.NamedRoutes
 @param PostsPage page
 
 @template.layout.page(
@@ -10,13 +11,13 @@ content = @`
     @else
         @for(Post post : page.getPosts())
             <div>
-                <h2><a href="${NamedRoutes.postPath(post.getId())}">${post.getName()}</a></h2>
+                <h2><a href="${org.example.hexlet.util.NamedRoutes.postPath(post.getId())}">${post.getName()}</a></h2>
                 <p>${post.getBody()}</p>
             </div>
         @endfor
     @endif
     @if(page.hasPrev())
-        <a href="${NamedRoutes.postsPath()  + "?page=" + (page.getPageNumber() - 1)}">prev</a>
+        <a href="${org.example.hexlet.util.NamedRoutes.postsPath()  + "?page=" + (page.getPageNumber() - 1)}">prev</a>
     @endif
     @if(page.hasNext())
         <a href="${NamedRoutes.postsPath() + "?page=" + (page.getPageNumber() + 1)}">next</a>
