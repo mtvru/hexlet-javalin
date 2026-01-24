@@ -36,7 +36,7 @@ public class App {
 
         // Получаем соединение, создаем стейтмент и выполняем запрос
         try (Connection connection = dataSource.getConnection();
-             Statement statement = connection.createStatement()) {
+            Statement statement = connection.createStatement()) {
             statement.execute(sql);
         }
         BaseRepository.dataSource = dataSource;
