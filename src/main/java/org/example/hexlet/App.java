@@ -5,10 +5,13 @@ import io.javalin.rendering.template.JavalinJte;
 import org.example.hexlet.controller.CoursesController;
 import org.example.hexlet.controller.PostsController;
 import org.example.hexlet.controller.UsersController;
+import org.example.hexlet.dto.MainPage;
 import org.example.hexlet.util.NamedRoutes;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import static io.javalin.rendering.template.TemplateUtil.model;
 
 public class App {
     public static void main(String[] args) {
@@ -20,7 +23,13 @@ public class App {
             String now = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
             System.out.println("[" + now + "] Incoming request: " + ctx.method() + " " + ctx.path());
         });
-        app.get("/", ctx -> ctx.render("index.jte"));
+        app.get("/", ctx -> {
+            Boolean visited = Boolean.valueOf(ctx.cookie("visited"));
+            MainPage page = new MainPage(visited);
+            ctx.render("index.jte", model("page", page));
+            ctx.cookie("visited", String.valueOf(true));
+        });
+
         app.get("/hello", ctx -> {
             String name = ctx.queryParamAsClass("name", String.class).getOrDefault("World");
             ctx.result("Hello, " + name + "!");
