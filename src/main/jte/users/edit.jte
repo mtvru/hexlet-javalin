@@ -4,7 +4,7 @@
 
 @template.layout.page(
 content = @`
-    <form action="${NamedRoutes.userPath(page.getUser().getId()}" method="patch">
+    <form action="${NamedRoutes.userPath(page.getUser().getId())}" method="patch">
         <div>
             <label>
                 Name
@@ -20,7 +20,7 @@ content = @`
         <div>
             <label>
                 Password
-                <input type="password" required name="password" value="${page.getUser().getPassword()}" />
+                <input type="password" required name="password" />
             </label>
         </div>
         <div>
