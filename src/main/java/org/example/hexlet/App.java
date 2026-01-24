@@ -39,7 +39,7 @@ public class App {
         app.get(NamedRoutes.postsPath(), PostsController::index);
         app.get(NamedRoutes.postPath("{id}"), PostsController::show);
         app.get(NamedRoutes.editPostPath("{id}"), PostsController::edit);
-        app.post(NamedRoutes.editPostPath("{id}"), PostsController::update);
+        app.post(NamedRoutes.postPath("{id}"), PostsController::update);
         app.start(7070);
     }
 }

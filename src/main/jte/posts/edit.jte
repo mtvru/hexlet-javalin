@@ -15,7 +15,7 @@ content = @`
             @endfor
         </ul>
     @endif
-    <form action="${NamedRoutes.editPostPath(page.getId())}" method="post">
+    <form action="${NamedRoutes.postPath(page.getId())}" method="post">
         <div>
             <label>
                 Name
