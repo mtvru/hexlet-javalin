@@ -27,6 +27,19 @@ public class UsersController {
         ctx.render("users/show.jte", model("page", page));
     }
 
+    public static void show2(Context ctx) throws Exception {
+        Long id = ctx.pathParamAsClass("id", Long.class).get();
+        User user = UserRepository.find(id)
+                .orElseThrow(() -> new NotFoundResponse("Entity with id = " + id + " not found"));
+        String token = ctx.cookie("token");
+        if (!(token != null && user.getToken().equals(token))) {
+            ctx.redirect(NamedRoutes.buildUserPath());
+            return;
+        }
+        UserPage page = new UserPage(user);
+        ctx.render("users/show.jte", model("page", page));
+    }
+
     public static void build(Context ctx) {
         BuildUserPage page = new BuildUserPage();
         ctx.render("users/build.jte", model("page", page));
