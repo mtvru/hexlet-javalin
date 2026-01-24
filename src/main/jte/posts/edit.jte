@@ -24,20 +24,8 @@ content = @`
         </div>
         <div>
             <label>
-                Email
-                <input type="text" required name="body" value="${page.getBody()}" />
-            </label>
-        </div>
-        <div>
-            <label>
-                Password
-                <input type="password" name="password" />
-            </label>
-        </div>
-        <div>
-            <label>
-                Confirm password
-                <input type="password" name="passwordConfirmation" />
+                Body
+                <input type="text" name="body" value="${page.getBody()}" />
             </label>
         </div>
         <input type="submit" value="Update" />
