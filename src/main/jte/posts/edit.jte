@@ -25,7 +25,7 @@ content = @`
         <div>
             <label>
                 Email
-                <input type="email" required name="body" value="${page.getBody()}" />
+                <input type="text" required name="body" value="${page.getBody()}" />
             </label>
         </div>
         <div>
