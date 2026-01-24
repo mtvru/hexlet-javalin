@@ -15,5 +15,4 @@ import java.util.Map;
 public class BuildCoursePage extends BasePage {
     private String name;
     private String description;
-    private Map<String, List<ValidationError<Object>>> errors;
 }

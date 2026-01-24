@@ -35,7 +35,7 @@ public class PostsController {
         Long id = ctx.pathParamAsClass("id", Long.class).get();
         Post post = PostRepository.find(id)
                 .orElseThrow(() -> new NotFoundResponse("Entity with id = " + id + " not found"));
-        EditPostPage page = new EditPostPage(id, post.getName(), post.getBody(), null);
+        EditPostPage page = new EditPostPage(id, post.getName(), post.getBody());
         ctx.render("posts/edit.jte", model("page", page));
     }
 
@@ -59,7 +59,8 @@ public class PostsController {
         } catch (ValidationException e) {
             String name = ctx.formParam("name");
             String body = ctx.formParam("body");
-            var page = new EditPostPage(id, name, body, e.getErrors());
+            var page = new EditPostPage(id, name, body);
+            page.setErrors(e.getErrors());
             ctx.render("posts/edit.jte", model("page", page)).status(422);
         }
     }

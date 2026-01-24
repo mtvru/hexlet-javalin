@@ -58,7 +58,8 @@ public class CoursesController {
             ctx.sessionAttribute("flash", "Course has been created!");
             ctx.redirect(NamedRoutes.coursesPath());
         } catch (ValidationException e) {
-            BuildCoursePage page = new BuildCoursePage(name, description, e.getErrors());
+            BuildCoursePage page = new BuildCoursePage(name, description);
+            page.setErrors(e.getErrors());
             ctx.status(422);
             ctx.render("courses/build.jte", model("page", page));
         }

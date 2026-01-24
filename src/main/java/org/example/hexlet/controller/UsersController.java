@@ -59,7 +59,8 @@ public class UsersController {
             UserRepository.save(user);
             ctx.redirect(NamedRoutes.usersPath());
         } catch (ValidationException e) {
-            BuildUserPage page = new BuildUserPage(name, email, e.getErrors());
+            BuildUserPage page = new BuildUserPage(name, email);
+            page.setErrors(e.getErrors());
             ctx.status(422);
             ctx.render("users/build.jte", model("page", page));
         }

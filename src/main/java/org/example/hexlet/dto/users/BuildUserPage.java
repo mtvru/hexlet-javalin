@@ -15,5 +15,4 @@ import org.example.hexlet.dto.BasePage;
 public class BuildUserPage extends BasePage {
     private String name;
     private String email;
-    private Map<String, List<ValidationError<Object>>> errors;
 }
