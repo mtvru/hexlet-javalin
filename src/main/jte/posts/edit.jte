@@ -40,7 +40,7 @@ content = @`
                 <input type="password" name="passwordConfirmation" />
             </label>
         </div>
-        <input type="submit" value="Update user" />
+        <input type="submit" value="Update" />
     </form>
 `
 )
