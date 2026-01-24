@@ -1,6 +1,8 @@
 package org.example.hexlet.controller;
 
 import java.sql.SQLException;
+import java.util.List;
+
 import static io.javalin.rendering.template.TemplateUtil.model;
 
 import org.example.hexlet.dto.cars.CarPage;
@@ -14,16 +16,16 @@ import io.javalin.http.NotFoundResponse;
 
 public class CarController {
     public static void index(Context ctx) throws SQLException {
-        var cars = CarRepository.getEntities();
-        var page = new CarsPage(cars);
+        List<Car> cars = CarRepository.getEntities();
+        CarsPage page = new CarsPage(cars);
         ctx.render("cars/index.jte", model("page", page));
     }
 
     public static void show(Context ctx) throws SQLException {
-        var id = ctx.pathParamAsClass("id", Long.class).get();
-        var car = CarRepository.find(id)
+        Long id = ctx.pathParamAsClass("id", Long.class).get();
+        Car car = CarRepository.find(id)
                 .orElseThrow(() -> new NotFoundResponse("Car with id = " + id + " not found"));
-        var page = new CarPage(car);
+        CarPage page = new CarPage(car);
         ctx.render("cars/show.jte", model("page", page));
     }
 
@@ -32,10 +34,10 @@ public class CarController {
     }
 
     public static void create(Context ctx) throws SQLException {
-        var make = ctx.formParam("make");
-        var model = ctx.formParam("model");
+        String make = ctx.formParam("make");
+        String model = ctx.formParam("model");
 
-        var car = new Car(make, model);
+        Car car = new Car(make, model);
         CarRepository.save(car);
         ctx.redirect(NamedRoutes.carsPath());
     }
