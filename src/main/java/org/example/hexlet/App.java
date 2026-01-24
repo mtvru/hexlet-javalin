@@ -29,7 +29,6 @@ public class App {
             ctx.render("index.jte", model("page", page));
             ctx.cookie("visited", String.valueOf(true));
         });
-
         app.get("/hello", ctx -> {
             String name = ctx.queryParamAsClass("name", String.class).getOrDefault("World");
             ctx.result("Hello, " + name + "!");
