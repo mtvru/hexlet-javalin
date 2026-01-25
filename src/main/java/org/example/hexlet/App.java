@@ -26,7 +26,7 @@ import static io.javalin.rendering.template.TemplateUtil.model;
 public class App {
     public static Javalin getApp() throws Exception {
         HikariConfig hikariConfig = new HikariConfig();
-        hikariConfig.setJdbcUrl("jdbc:h2:mem:hexlet_project;DB_CLOSE_DELAY=-1;");
+        hikariConfig.setJdbcUrl(getDatabaseUrl());
 
         HikariDataSource dataSource = new HikariDataSource(hikariConfig);
         // Получаем путь до файла в src/main/resources
@@ -90,5 +90,9 @@ public class App {
         app.post(NamedRoutes.sessionsPath(), SessionsController::create);
         app.delete(NamedRoutes.sessionsPath(), SessionsController::destroy);
         app.start(7070);
+    }
+
+    private static String getDatabaseUrl() {
+        return System.getenv().getOrDefault("DATABASE_URL", "jdbc:h2:mem:hexlet_project;DB_CLOSE_DELAY=-1;");
     }
 }
