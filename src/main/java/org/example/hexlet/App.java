@@ -29,12 +29,11 @@ public class App {
         hikariConfig.setJdbcUrl(getDatabaseUrl());
 
         HikariDataSource dataSource = new HikariDataSource(hikariConfig);
-        // Получаем путь до файла в src/main/resources
+        // Get the path to the file in src/main/resources
         InputStream url = App.class.getClassLoader().getResourceAsStream("schema.sql");
         String sql = new BufferedReader(new InputStreamReader(url))
                 .lines().collect(Collectors.joining(System.lineSeparator()));
 
-        // Получаем соединение, создаем стейтмент и выполняем запрос
         try (Connection connection = dataSource.getConnection();
             Statement statement = connection.createStatement()) {
             statement.execute(sql);

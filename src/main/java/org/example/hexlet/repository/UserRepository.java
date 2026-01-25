@@ -22,7 +22,6 @@ public class UserRepository extends BaseRepository {
             preparedStatement.setString(3, user.getPassword());
             preparedStatement.executeUpdate();
             try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
-                // Устанавливаем ID в сохраненную сущность
                 if (generatedKeys.next()) {
                     user.setId(generatedKeys.getLong(1));
                 } else {

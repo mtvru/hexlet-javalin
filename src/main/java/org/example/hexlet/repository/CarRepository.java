@@ -22,7 +22,6 @@ public class CarRepository extends BaseRepository {
             preparedStatement.setString(2, car.getModel());
             preparedStatement.executeUpdate();
             try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
-                // Устанавливаем ID в сохраненную сущность
                 if (generatedKeys.next()) {
                     car.setId(generatedKeys.getLong(1));
                 } else {
