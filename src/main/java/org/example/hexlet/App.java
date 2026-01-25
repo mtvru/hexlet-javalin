@@ -41,7 +41,7 @@ public class App {
         BaseRepository.dataSource = dataSource;
 
         return Javalin.create(config -> {
-            config.bundledPlugins.enableDevLogging();
+//            config.bundledPlugins.enableDevLogging();
             config.fileRenderer(new JavalinJte());
         });
     }
