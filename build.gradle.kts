@@ -5,6 +5,7 @@ plugins {
     application
     id("java")
     id("io.freefair.lombok") version "8.13.1"
+    id("com.github.johnrengelman.shadow") version "8.1.1"
 }
 
 application {
